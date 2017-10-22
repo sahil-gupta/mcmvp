@@ -30,9 +30,9 @@ export function provideSettings(storage: Storage) {
    */
   return new Settings(storage, {
     option1: true,
-    option2: 'Ionitron J. Framework',
-    option3: '3',
-    option4: 'Hello'
+    option2: 'John Doe',
+    option3: '33',
+    option4: 'Hi'
   });
 }
 
