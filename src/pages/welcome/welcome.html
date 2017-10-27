@@ -7,7 +7,12 @@
     </div>
   </div>
   <div padding>
-    <button ion-button block (click)="signup()">{{ 'SIGNUP' | translate }}</button>
-    <button ion-button block (click)="login()" class="login">{{ 'LOGIN' | translate }}</button>
+    <button ion-button block (click)="signInWithFacebook()">
+      <!-- <ion-icon name="logo-facebook"></ion-icon> -->
+      Login with Facebook
+    </button>
+
+    <button ion-button block (click)="tosignup()" class="login">Login with Email</button>
+
   </div>
 </ion-content>

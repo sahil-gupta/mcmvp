@@ -4,6 +4,12 @@ import { IonicPage, ModalController, NavController } from 'ionic-angular';
 import { Item } from '../../models/item';
 import { Items } from '../../providers/providers';
 
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+
 @IonicPage()
 @Component({
   selector: 'page-list-master',
@@ -11,9 +17,12 @@ import { Items } from '../../providers/providers';
 })
 export class ListMasterPage {
   currentItems: Item[];
+  theItems: Observable<any[]>; // here
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController,
+              afDB: AngularFireDatabase, private afAuth: AngularFireAuth) {
     this.currentItems = this.items.query();
+    this.theItems = afDB.list('cuisines').valueChanges(); // here
   }
 
   /**

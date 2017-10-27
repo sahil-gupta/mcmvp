@@ -43,7 +43,7 @@ export class User {
       } else {
       }
     }, err => {
-      console.error('ERROR', err);
+      console.error('errors', err);
     });
 
     return seq;
@@ -62,7 +62,7 @@ export class User {
         this._loggedIn(res);
       }
     }, err => {
-      console.error('ERROR', err);
+      console.error('errors', err);
     });
 
     return seq;

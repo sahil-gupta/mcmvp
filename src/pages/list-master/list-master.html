@@ -14,6 +14,13 @@
 
 <ion-content>
 
+  <!-- here -->
+  <ion-list>
+    <ion-item class="text" *ngFor="let item of theItems | async">
+      {{ item | json }}
+    </ion-item>
+  </ion-list>
+
   <ion-list>
     <ion-item-sliding *ngFor="let item of currentItems">
       <button ion-item (click)="openItem(item)">
