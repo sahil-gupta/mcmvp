@@ -61,10 +61,8 @@ export class SignupPage {
       toast.present();
     });
   }
-  
+
   tologin() {
     this.navCtrl.push('LoginPage');
   }
-
-
 }

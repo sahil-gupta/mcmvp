@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
-
-import { AngularFireDatabase } from 'angularfire2/database';
 
 import { MainPage } from '../pages';
 
@@ -28,7 +26,7 @@ export class WelcomePage {
               private afAuth: AngularFireAuth,
               private fb: Facebook,
               private platform: Platform,
-              afDB: AngularFireDatabase) {
+              public toastCtrl: ToastController) {
     // afAuth.authState.subscribe((user: firebase.User) => {
     //   if (!user) {
     //     this.userProfile = null;
@@ -47,24 +45,38 @@ export class WelcomePage {
         return firebase.auth().signInWithCredential(facebookCredential)
         .then(success => this.facebookSuccessTodo(success))
         .catch(error => {
-          if (error.code === 'auth/account-exists-with-different-credential') {
-            console.log(error.code);
-          }
+          // 'auth/account-exists-with-different-credential'
+          console.log(error.code);
+
+          let toast = this.toastCtrl.create({
+            message: 'So... this email exists with another account',
+            duration: 3000,
+          });
+          toast.present();
         });
+      })
+      .catch(error => {
+        console.log('cancelled fb login');
+        console.log(error);
       });
     } else {
       return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
       .then(success => this.facebookSuccessTodo(success))
       .catch(error => {
-        if (error.code === 'auth/account-exists-with-different-credential') {
-          console.log(error.code);
-        }
+        // 'auth/account-exists-with-different-credential'
+        console.log(error.code);
+
+        let toast = this.toastCtrl.create({
+          message: 'So... this email exists with another account',
+          duration: 3000,
+        });
+        toast.present();
       });
     }
   }
 
   facebookSuccessTodo(success) {
-    console.log("facebook success: " + JSON.stringify(success));
+    console.log("facebook success") // + JSON.stringify(success));
     var uid = success.user.uid;
     var p = success.additionalUserInfo.profile;
     firebase.database().ref('users/' + uid).set({
@@ -77,12 +89,11 @@ export class WelcomePage {
     this.navCtrl.push(MainPage);
   }
 
-  // signOut() {
-  //   this.afAuth.auth.signOut();
-  //   console.log('signed out');
-  // }
-
   tosignup() {
     this.navCtrl.push('SignupPage');
+  }
+
+  quickload() {
+    this.navCtrl.push(MainPage);
   }
 }

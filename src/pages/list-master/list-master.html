@@ -1,42 +1,64 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
     <ion-title>{{ 'LIST_MASTER_TITLE' | translate }}</ion-title>
 
-    <ion-buttons end>
+    <!-- <ion-buttons end>
       <button ion-button icon-only (click)="addItem()">
         <ion-icon name="add"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="thesegment" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="my">
+        My
+      </ion-segment-button>
+      <ion-segment-button value="curated">
+        Curated
+      </ion-segment-button>
+      <ion-segment-button value="all">
+        All
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
 
 </ion-header>
 
 <ion-content>
+  <ion-searchbar
+    *ngIf='thesegment==="all"'
+    (ionInput)="getItems($event)"
+    (ionCancel)="resetItems($event)"
+    (ionClear)="resetItems($event)"
+    placeholder="Search"
+    animated=true
+    >
+  </ion-searchbar>
 
-  <!-- here -->
   <ion-list>
-    <ion-item class="text" *ngFor="let item of theItems | async">
-      {{ item | json }}
-    </ion-item>
+    <button ion-item detail-none (click)="openItem(org)" *ngFor="let org of realorgs">
+      <!-- <ion-avatar item-start>
+        <img [src]="org.PPlogoUrl" />
+      </ion-avatar> -->
+      <ion-label>
+        <h2>{{ org.PPname }}</h2>
+        <p>{{ org.PPdescription }}</p>
+      </ion-label>
+      <!-- <ion-note item-end>{{ org.MCstars }}</ion-note> -->
+      <ion-toggle [(ngModel)]="org.checked" (ionChange)="toggleChanged(org)"></ion-toggle>
+    </button>
   </ion-list>
 
-  <ion-list>
-    <ion-item-sliding *ngFor="let item of currentItems">
-      <button ion-item (click)="openItem(item)">
-        <ion-avatar item-start>
-          <img [src]="item.profilePic" />
-        </ion-avatar>
-        <h2>{{item.name}}</h2>
-        <p>{{item.about}}</p>
-        <ion-note item-end *ngIf="item.note">{{item.note}}</ion-note>
-      </button>
-
-      <ion-item-options>
-        <button ion-button color="danger" (click)="deleteItem(item)">
-          {{ 'DELETE_BUTTON' | translate }}
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+  <ion-infinite-scroll
+    *ngIf='thesegment==="all"'
+    (ionInfinite)="$event.waitFor(doInfinite())">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

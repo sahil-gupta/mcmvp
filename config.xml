@@ -92,4 +92,7 @@
         <variable name="APP_ID" value="869390396561501" />
         <variable name="APP_NAME" value="microChange" />
     </plugin>
+    <allow-navigation href="http://172.31.98.118:8100" />
+    <plugin name="cordova-plugin-youtube-video-player" spec="^1.0.6" />
+    <preference name="YouTubeDataApiKey" value="AIzaSyBLZNjlJTR2-KP8OsuVJ3Pcdr0zKEjIoxY" />
 </widget>

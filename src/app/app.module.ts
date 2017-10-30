@@ -9,9 +9,9 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { Items } from '../mocks/providers/items';
+import { Items } from '../providers/providers';
 import { Settings } from '../providers/providers';
-import { User } from '../providers/providers';
+import { User } from '../providers/providers'; // heree might not need this
 import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
 
@@ -19,6 +19,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Facebook } from '@ionic-native/facebook';
+
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCwghCK0SPI5dZJ0Vemypk8f1J41oWWE1Q",
@@ -85,7 +87,8 @@ export function provideSettings(storage: Storage) {
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    Facebook
+    Facebook,
+    YoutubeVideoPlayer
   ]
 })
 export class AppModule { }
