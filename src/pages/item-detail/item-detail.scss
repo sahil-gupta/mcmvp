@@ -2,13 +2,47 @@ page-item-detail {
   .item-profile {
     width: 100%;
     background-position: center center;
-    background-size: cover;
+    background-size: contain;
     height: 250px;
   }
 
   .item-detail {
     width: 100%;
-    background: white;
+    // background: white;
     position: absolute;
   }
+
+  ion-icon {
+    color: #0077f7;
+  }
+
+  .leftCushion {
+    margin-left: 6px;
+  }
+
+  .smaller1 {
+    font-size: 1em;
+  }
+
+  .smaller2 {
+    font-size: .9em;
+  }
+
+  p {
+    line-height: 150% !important;
+  }
+
+  ion-label {
+    line-height: 200%;
+  }
+
+  [text-wrap] .label-md {
+    font-size: inherit;
+  }
+
+  .italic {
+    font-style: italic;
+    line-height: 200% !important;
+  }
+
 }

@@ -1,18 +1,60 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ item.name }}</ion-title>
+    <ion-title>{{ orgDisplay.name }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + item.profilePic + ')'">
+  <div class="item-profile" text-center
+    #profilePic
+    [style.background-image]="'url(' + orgDisplay.logoUrl + ')'">
   </div>
 
-  <div class="item-detail" padding>
-    <h2>{{item.name}}</h2>
-    <p>{{item.about}}</p>
-  </div>
+  <ion-list>
+    <ion-item text-wrap>
+      {{orgDisplay.name}}
+      <p *ngIf="orgDisplay.slogan" class="italic">{{orgDisplay.slogan}}</p>
+      <p *ngIf="orgDisplay.description">{{orgDisplay.description}}</p>
+    </ion-item>
+
+    <ion-item *ngIf="orgDisplay.charityNavSection">
+      Transparency and Accountability
+      <p *ngIf="orgDisplay.stars">
+        Charity Navigator Rating
+        <ion-icon name="star" *ngIf="orgDisplay.stars >= 1" class="leftCushion"></ion-icon>
+
+        <ion-icon name="star" *ngIf="orgDisplay.stars >= 2"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="orgDisplay.stars < 2"></ion-icon>
+        <ion-icon name="star" *ngIf="orgDisplay.stars >= 3"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="orgDisplay.stars < 3"></ion-icon>
+        <ion-icon name="star" *ngIf="orgDisplay.stars === 4"></ion-icon>
+        <ion-icon name="star-outline" *ngIf="orgDisplay.stars < 4"></ion-icon>
+      </p>
+
+      <p *ngIf="orgDisplay.score">
+        Charity Navigator Score
+        <ion-badge class="leftCushion">{{orgDisplay.score}} / 100</ion-badge>
+      </p>
+
+      <p *ngIf="orgDisplay.charityNavUrl" (click)="openWebsite(orgDisplay.charityNavUrl)">
+        Raw data
+        <ion-icon name="link" class="leftCushion smaller2"></ion-icon>
+      </p>
+    </ion-item>
+
+    <ion-item *ngIf="orgDisplay.website" (click)="openWebsite(orgDisplay.website)">
+      Website
+      <ion-icon name="link" class="leftCushion smaller1"></ion-icon>
+    </ion-item>
+
+    <ion-item *ngIf="orgDisplay.areas">
+      Mission Area
+      <p *ngFor="let area of orgDisplay.areas">
+        {{ area }}
+      </p>
+    </ion-item>
+  </ion-list>
 </ion-content>

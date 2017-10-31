@@ -22,6 +22,8 @@ import { Facebook } from '@ionic-native/facebook';
 
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 export const firebaseConfig = {
   apiKey: "AIzaSyCwghCK0SPI5dZJ0Vemypk8f1J41oWWE1Q",
   authDomain: "mcionicapp.firebaseapp.com",
@@ -88,7 +90,8 @@ export function provideSettings(storage: Storage) {
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     Facebook,
-    YoutubeVideoPlayer
+    YoutubeVideoPlayer,
+    InAppBrowser
   ]
 })
 export class AppModule { }

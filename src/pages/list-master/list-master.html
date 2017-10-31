@@ -34,9 +34,9 @@
 <ion-content>
   <ion-searchbar
     *ngIf='thesegment==="all"'
-    (ionInput)="getItems($event)"
-    (ionCancel)="resetItems($event)"
-    (ionClear)="resetItems($event)"
+    (ionInput)="searchForOrgs($event)"
+    (ionCancel)="resetOrgs($event)"
+    (ionClear)="resetOrgs($event)"
     placeholder="Search"
     animated=true
     >
@@ -58,7 +58,7 @@
 
   <ion-infinite-scroll
     *ngIf='thesegment==="all"'
-    (ionInfinite)="$event.waitFor(doInfinite())">
+    (ionInfinite)="$event.waitFor(infiniteScroll())">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

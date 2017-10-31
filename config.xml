@@ -80,6 +80,8 @@
     <allow-navigation href="http://192.168.0.15:8100" />
     <allow-navigation href="http://192.168.1.120:8100" />
     <allow-navigation href="http://192.168.1.120:8101" />
+    <allow-navigation href="http://172.31.98.118:8100" />
+    <preference name="YouTubeDataApiKey" value="AIzaSyBLZNjlJTR2-KP8OsuVJ3Pcdr0zKEjIoxY" />
     <engine name="ios" spec="~4.5.2" />
     <engine name="android" spec="~6.3.0" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
@@ -92,7 +94,6 @@
         <variable name="APP_ID" value="869390396561501" />
         <variable name="APP_NAME" value="microChange" />
     </plugin>
-    <allow-navigation href="http://172.31.98.118:8100" />
     <plugin name="cordova-plugin-youtube-video-player" spec="^1.0.6" />
-    <preference name="YouTubeDataApiKey" value="AIzaSyBLZNjlJTR2-KP8OsuVJ3Pcdr0zKEjIoxY" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
 </widget>

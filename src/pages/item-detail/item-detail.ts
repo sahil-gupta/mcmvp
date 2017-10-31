@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { Items } from '../../providers/providers';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @IonicPage()
 @Component({
@@ -9,10 +9,16 @@ import { Items } from '../../providers/providers';
   templateUrl: 'item-detail.html'
 })
 export class ItemDetailPage {
-  item: any;
+  orgDisplay: any;
 
-  constructor(public navCtrl: NavController, navParams: NavParams, items: Items) {
-    this.item = navParams.get('item') || items.defaultItem;
+  constructor(public navCtrl: NavController,
+    navParams: NavParams,
+    private iab: InAppBrowser) {
+    this.orgDisplay = navParams.get('orgDisplay');
   }
 
+  openWebsite(website) {
+    // const browser =
+    this.iab.create(website, '_blank', 'location=no');
+  }
 }

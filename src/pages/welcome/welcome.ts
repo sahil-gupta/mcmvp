@@ -46,7 +46,7 @@ export class WelcomePage {
         .then(success => this.facebookSuccessTodo(success))
         .catch(error => {
           // 'auth/account-exists-with-different-credential'
-          console.log(error.code);
+          console.log(JSON.stringify(error));
 
           let toast = this.toastCtrl.create({
             message: 'So... this email exists with another account',
@@ -57,7 +57,7 @@ export class WelcomePage {
       })
       .catch(error => {
         console.log('cancelled fb login');
-        console.log(error);
+        console.log(JSON.stringify(error));
       });
     } else {
       return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
@@ -77,15 +77,27 @@ export class WelcomePage {
 
   facebookSuccessTodo(success) {
     console.log("facebook success") // + JSON.stringify(success));
-    var uid = success.user.uid;
-    var p = success.additionalUserInfo.profile;
-    firebase.database().ref('users/' + uid).set({
-      gender: p.gender,
-      timezone: p.timezone,
-      link: p.link,
-      last_name: p.last_name,
-      first_name: p.first_name
-    });
+    var uid;
+    if (success.user) { // first time login
+      uid = success.user.uid;
+      var p = success.additionalUserInfo.profile;
+      firebase.database().ref('users/' + uid).set({
+        gender: p.gender,
+        timezone: p.timezone,
+        link: p.link,
+        last_name: p.last_name,
+        first_name: p.first_name,
+        photoURL: p.photoURL
+      });
+    } else { // repeat login
+      uid = success.uid;
+      firebase.database().ref('users/' + uid).update({
+        last_name: success.displayName.split(' ')[1],
+        first_name: success.displayName.split(' ')[0],
+        photoURL: success.photoURL
+      });
+    }
+
     this.navCtrl.push(MainPage);
   }
 
