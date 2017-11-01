@@ -31,7 +31,7 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content has-footer>
   <ion-searchbar
     *ngIf='thesegment==="all"'
     (ionInput)="searchForOrgs($event)"
@@ -63,14 +63,11 @@
   </ion-infinite-scroll>
 </ion-content>
 
-<ion-footer *ngIf='thesegment==="my"'>
-  <ion-toolbar>
-    <p>Ash, Misty, Brock</p>
-    <ion-buttons end>
-      <button ion-button icon-right color="royal">
-        Send
-        <ion-icon name="send"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
+<ion-footer>
+  <!-- <ion-toolbar *ngIf='thesegment==="my"'> -->
+    <button full ion-button icon-end *ngIf='thesegment==="my"' (click)="addBlock()">
+      Add Block
+      <ion-icon name="cube"></ion-icon>
+    </button>
+  <!-- </ion-toolbar> -->
 </ion-footer>

@@ -23,10 +23,14 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
             <img [src]="currentUser.photoURL">
           </ion-avatar>
           <h1 *ngIf="currentUser.first_name">{{ currentUser.first_name }}</h1>
-          <h1 item-right *ngIf="currentUser.mNumber" class="italic">== {{ currentUser.mNumber }}</h1>
+          <h1 item-right *ngIf="currentUser.mNumber" class="italic">= {{ currentUser.mNumber }}</h1>
         </ion-item>
-        <button menuClose ion-item (click)="openWebsite()">Message Us</button>
-        <button menuClose ion-item (click)="logout()">Logout</button>
+        <button menuClose ion-item detail-none (click)="openWebsite()">
+          Message Us Instantly
+        </button>
+        <button menuClose ion-item detail-none (click)="logout()">
+          Logout
+        </button>
       </ion-list>
     </ion-content>
   </ion-menu>

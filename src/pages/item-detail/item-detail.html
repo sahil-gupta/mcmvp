@@ -22,6 +22,12 @@
 
     <ion-item *ngIf="orgDisplay.charityNavSection">
       Transparency and Accountability
+      <button ion-button outline item-end icon-end
+        (click)="openWebsite(orgDisplay.charityNavUrl)"
+        *ngIf="orgDisplay.charityNavUrl">
+        Link
+        <ion-icon name="link"></ion-icon>
+      </button>
       <p *ngIf="orgDisplay.stars">
         Charity Navigator Rating
         <ion-icon name="star" *ngIf="orgDisplay.stars >= 1" class="leftCushion"></ion-icon>
@@ -38,16 +44,14 @@
         Charity Navigator Score
         <ion-badge class="leftCushion">{{orgDisplay.score}} / 100</ion-badge>
       </p>
-
-      <p *ngIf="orgDisplay.charityNavUrl" (click)="openWebsite(orgDisplay.charityNavUrl)">
-        Raw data
-        <ion-icon name="link" class="leftCushion smaller2"></ion-icon>
-      </p>
     </ion-item>
 
-    <ion-item *ngIf="orgDisplay.website" (click)="openWebsite(orgDisplay.website)">
+    <ion-item *ngIf="orgDisplay.website">
       Website
-      <ion-icon name="link" class="leftCushion smaller1"></ion-icon>
+      <button ion-button outline item-end icon-end (click)="openWebsite(orgDisplay.website)">
+        Link
+        <ion-icon name="link"></ion-icon>
+      </button>
     </ion-item>
 
     <ion-item *ngIf="orgDisplay.areas">

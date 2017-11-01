@@ -242,4 +242,8 @@ export class ListMasterPage {
     for (var i in this.realorgs)
       this.realorgs[i].checked = this.checkedOrgs[this.realorgs[i]['ein']];
   }
+
+  addBlock() {
+    console.log('hiii')
+  }
 }
