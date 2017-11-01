@@ -5,10 +5,10 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @IonicPage()
 @Component({
-  selector: 'page-item-detail',
-  templateUrl: 'item-detail.html'
+  selector: 'page-org-detail',
+  templateUrl: 'org-detail.html'
 })
-export class ItemDetailPage {
+export class OrgDetailPage {
   orgDisplay: any;
 
   constructor(public navCtrl: NavController,

@@ -1,15 +1,9 @@
-page-item-detail {
-  .item-profile {
+page-org-detail {
+  .org-profile {
     width: 100%;
     background-position: center center;
     background-size: contain;
     height: 250px;
-  }
-
-  .item-detail {
-    width: 100%;
-    // background: white;
-    position: absolute;
   }
 
   ion-icon {
@@ -26,7 +20,7 @@ page-item-detail {
   }
 
   p.italic {
-    line-height: 200% !important;
+    line-height: 250% !important;
   }
 
 }

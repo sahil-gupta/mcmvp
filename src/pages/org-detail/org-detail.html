@@ -8,7 +8,7 @@
 
 
 <ion-content>
-  <div class="item-profile" text-center
+  <div class="org-profile" text-center
     #profilePic
     [style.background-image]="'url(' + orgDisplay.logoUrl + ')'">
   </div>
@@ -21,7 +21,7 @@
     </ion-item>
 
     <ion-item *ngIf="orgDisplay.charityNavSection">
-      Transparency and Accountability
+      Transparency &amp; Accountability
       <button ion-button outline item-end icon-end
         (click)="openWebsite(orgDisplay.charityNavUrl)"
         *ngIf="orgDisplay.charityNavUrl">

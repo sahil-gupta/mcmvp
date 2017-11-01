@@ -62,7 +62,7 @@ export class MyApp {
       if (!user) return;
       var uid = user.uid;
       firebase.database().ref('users/' + uid).once('value', snapshot => {
-        this.currentUser = snapshot.val();
+        this.currentUser = snapshot.val(); // the user from the firebase db, not the firebase auth
         console.log(this.currentUser);
       });
     });

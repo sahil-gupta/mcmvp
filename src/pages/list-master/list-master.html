@@ -43,7 +43,7 @@
   </ion-searchbar>
 
   <ion-list>
-    <button ion-item detail-none (click)="openItem(org)" *ngFor="let org of realorgs">
+    <button ion-item detail-none (click)="openOrg(org)" *ngFor="let org of realorgs">
       <!-- <ion-avatar item-start>
         <img [src]="org.PPlogoUrl" />
       </ion-avatar> -->
@@ -63,11 +63,11 @@
   </ion-infinite-scroll>
 </ion-content>
 
-<ion-footer>
-  <!-- <ion-toolbar *ngIf='thesegment==="my"'> -->
-    <button full ion-button icon-end *ngIf='thesegment==="my"' (click)="addBlock()">
-      Add Block
-      <ion-icon name="cube"></ion-icon>
-    </button>
-  <!-- </ion-toolbar> -->
+<ion-footer class="new-bg">
+  <button full ion-button icon-end *ngIf='thesegment==="my"'
+    [disabled]="!realorgs.length"
+    (click)="addBlock()">
+    Add Block
+    <ion-icon name="cube"></ion-icon>
+  </button>
 </ion-footer>

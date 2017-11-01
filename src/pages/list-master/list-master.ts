@@ -12,7 +12,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class ListMasterPage {
   lastOrg;
   realorgs; // added the property "ein" for easy read access
-  checkedOrgs;
+  checkedorgs;
   thesegment;
   currentUser;
   db;
@@ -25,7 +25,7 @@ export class ListMasterPage {
       this.db = firebase.database();
       this.thesegment = 'curated';
       this.realorgs = [];
-      this.checkedOrgs = [];
+      this.checkedorgs = [];
       afAuth.authState.subscribe((user: firebase.User) => {
         this.currentUser = user;
         if (!user) {
@@ -51,7 +51,7 @@ export class ListMasterPage {
           // is continually synced ('on' vs 'once')
           this.db.ref('users/' + this.currentUser.uid + '/orgs')
             .on('value', snapshot => {
-              this.checkedOrgs = snapshot.val() || [];
+              this.checkedorgs = snapshot.val() || [];
               this.updateCheckedValues();
             });
         });
@@ -102,7 +102,7 @@ export class ListMasterPage {
     } else if (ev._value === 'my') {
       this.realorgs = [];
 
-      var temp = this.checkedOrgs;
+      var temp = this.checkedorgs;
       var tempkeys = (<any>Object).keys(temp);
       tempkeys = tempkeys.filter(k => temp[k]); // only true values
 
@@ -203,7 +203,7 @@ export class ListMasterPage {
     this.realorgs = [];
   }
 
-  openItem(org) {
+  openOrg(org) {
     var orgDisplay = {};
 
     orgDisplay['name'] = org.PPname; // also CNcharityName
@@ -231,19 +231,50 @@ export class ListMasterPage {
       orgDisplay['areas'].push(org.CNcategory);
     orgDisplay['areas'] = Array.from(new Set(orgDisplay['areas'])); // remove dups
 
-    this.navCtrl.push('ItemDetailPage', {
+    this.navCtrl.push('OrgDetailPage', {
       orgDisplay: orgDisplay
     });
   }
 
   updateCheckedValues() {
-    if (!this.checkedOrgs)
+    if (!this.checkedorgs)
       return;
     for (var i in this.realorgs)
-      this.realorgs[i].checked = this.checkedOrgs[this.realorgs[i]['ein']];
+      this.realorgs[i].checked = this.checkedorgs[this.realorgs[i]['ein']];
   }
 
   addBlock() {
-    console.log('hiii')
+    var temp = this.realorgs.filter(org => org.checked);
+    var blockorgs = temp.slice(); // duplicate. will still carry some identical deep fields
+
+    for (var i in blockorgs)
+      blockorgs[i].percentage = 0;
+
+    if (blockorgs.length === 1) {
+      blockorgs[0].percentage = 100;
+    } else {
+      blockorgs[0].percentage = 50;
+      blockorgs[1].percentage = 50;
+    }
+
+    var theuser = {};
+    theuser['uid'] = this.currentUser.uid;
+    theuser['nameFull'] = this.currentUser.displayName;
+    var namearr = [];
+    if (this.currentUser.displayName)
+      namearr = this.currentUser.displayName.split(' ');
+    theuser['nameFirst'] = namearr[0] || '';
+    if (namearr.length >= 2) {
+        theuser['nameInitials'] = namearr[0][0] + namearr[1][0];
+    } else {
+      theuser['nameInitials'] = namearr[0][0] || '';
+    }
+
+    // console.log(theuser)
+
+    this.navCtrl.push('OrgDonatePage', {
+      blockorgs: blockorgs,
+      theuser: theuser
+    });
   }
 }

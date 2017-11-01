@@ -1,0 +1,79 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Block</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content has-footer>
+  <ion-list>
+    <div *ngFor="let org of blockorgs">
+      <ion-item no-lines>
+        <ion-label>
+          {{org.PPname}}
+        </ion-label>
+        <ion-badge item-end>{{org.percentage}}%</ion-badge>
+      </ion-item>
+      <ion-item class="range-spacing">
+        <ion-range min="0" max="100" step="10"
+          [(ngModel)]="org.percentage"
+          snaps="true"
+          (ionChange)="calcSum()"></ion-range>
+      </ion-item>
+    </div>
+
+    <ion-item>
+      <ion-label>Total</ion-label>
+      <ion-badge item-end *ngIf="calcSum()===100">{{calcSum()}}%</ion-badge>
+      <ion-badge item-end *ngIf="calcSum()!==100" color="danger">{{calcSum()}}%</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer class="new-bg">
+  <ion-list>
+
+    <ion-item class="border-top">
+      <ion-label>
+        My Name
+        <ion-icon icon-end name="globe" class="leftCushion smaller1"></ion-icon>
+      </ion-label>
+      <ion-select [(ngModel)]="choiceName" interface="popover">
+        <ion-option value="nameFull">{{theuser.nameFull}}</ion-option>
+        <ion-option value="nameFirst">{{theuser.nameFirst}}</ion-option>
+        <ion-option value="nameInitials">{{theuser.nameInitials}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Total Amount
+        <ion-icon name="lock" class="leftCushion smaller1"></ion-icon>
+      </ion-label>
+      <ion-select [(ngModel)]="choiceAmount" interface="popover">
+        <ion-option value="0">${{theamounts[0]}}</ion-option>
+        <ion-option value="1">${{theamounts[1]}}</ion-option>
+        <ion-option value="2">${{theamounts[2]}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Method</ion-label>
+      <ion-select [(ngModel)]="choicePayment" interface="popover">
+        <ion-option value="0">{{thepayments[0]}}</ion-option>
+        <ion-option value="1">{{thepayments[1]}}</ion-option>
+        <ion-option value="2">{{thepayments[2]}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
+
+  <button full ion-button icon-end
+    (click)="addBlockNow()"
+    [disabled]="calcSum()!==100">
+    Add Block
+    <ion-icon name="cube"></ion-icon>
+  </button>
+
+</ion-footer>

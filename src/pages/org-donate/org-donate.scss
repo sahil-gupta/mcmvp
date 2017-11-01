@@ -1,0 +1,38 @@
+page-org-donate {
+
+  ion-icon {
+    // color: #0077f7;
+  }
+
+  button-full, .button-full-md, .button-full-ios {
+    margin: 3%;
+    width: 94%;
+  }
+
+  .range-spacing {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: -10px;
+  }
+
+  .list-ios, .list-md {
+    margin-bottom: -10px;
+  }
+
+  .border-top {
+    border-top: 2px solid lightslategray;
+  }
+
+  // .new-bg {
+  //   background: lightslategrey;
+  // }
+  // ion-footer .item-ios, ion-footer .item-md {
+  //   background: lightslategrey;
+  // }
+  // .item-select .label-ios, .item-select .label-md {
+  //   color: white;
+  // }
+
+  // background: color($colors, twitter, base);
+
+}
