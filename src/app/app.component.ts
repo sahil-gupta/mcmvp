@@ -9,16 +9,24 @@ import { Settings } from '../providers/providers';
 
 import * as firebase from 'firebase/app';
 
+import { AngularFireAuth } from 'angularfire2/auth';
+
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Component({
   template:
   `<ion-menu [content]="content">
     <ion-content>
       <ion-list>
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          {{p.title}}
-        </button>
-        <button menuClose ion-item (click)="logout()">log out now</button>
+        <ion-item *ngIf="currentUser">
+          <ion-avatar item-left *ngIf="currentUser.photoURL">
+            <img [src]="currentUser.photoURL">
+          </ion-avatar>
+          <h1 *ngIf="currentUser.first_name">{{ currentUser.first_name }}</h1>
+          <h1 item-right *ngIf="currentUser.mNumber" class="italic">== {{ currentUser.mNumber }}</h1>
+        </ion-item>
+        <button menuClose ion-item (click)="openWebsite()">Message Us</button>
+        <button menuClose ion-item (click)="logout()">Logout</button>
       </ion-list>
     </ion-content>
   </ion-menu>
@@ -28,17 +36,16 @@ import * as firebase from 'firebase/app';
 })
 export class MyApp {
   rootPage = FirstRunPage;
+  currentUser;
 
   @ViewChild(Nav) nav: Nav;
-
-  pages: any[] = [
-    { title: 'Welcome', component: 'WelcomePage' },
-  ]
 
   constructor(private translate: TranslateService, platform: Platform, settings: Settings,
     private config: Config,
     private statusBar: StatusBar,
-    private splashScreen: SplashScreen) {
+    private splashScreen: SplashScreen,
+    afAuth: AngularFireAuth,
+    private iab: InAppBrowser) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -46,6 +53,15 @@ export class MyApp {
       this.splashScreen.hide();
     });
     this.initTranslate();
+    this.currentUser = {};
+    afAuth.authState.subscribe((user: firebase.User) => {
+      if (!user) return;
+      var uid = user.uid;
+      firebase.database().ref('users/' + uid).once('value', snapshot => {
+        this.currentUser = snapshot.val();
+        console.log(this.currentUser);
+      });
+    });
   }
 
   initTranslate() {
@@ -69,9 +85,15 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 
+  openWebsite() {
+    // const browser =
+    var messenger = 'https://m.me/microchange.io';
+    this.iab.create(messenger, '_blank', 'location=no');
+  }
+
+
   logout() {
-    firebase.auth().signOut();
-    console.log('just logged out');
-    this.nav.setRoot('WelcomePage')
+    // firebase.auth().signOut(); // heree need to use .off() to turn off firebase connections first
+    this.nav.setRoot('WelcomePage');
   }
 }

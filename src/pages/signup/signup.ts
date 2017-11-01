@@ -39,16 +39,31 @@ export class SignupPage {
 
     firebase.auth().createUserWithEmailAndPassword(this.account.email, this.account.password)
     .then(success => {
-      console.log('user created');
       var uid = success.uid;
       console.log('new user ' + uid);
-      firebase.database().ref('users/' + uid).set({
-        gender: null,
-        timezone: null,
-        link: null,
-        last_name: this.account.last_name,
-        first_name: this.account.first_name
+
+      // this is the auth database, not the /users database
+      success.updateProfile({
+        displayName: this.account.first_name + ' ' + this.account.last_name
+        // ,photoURL: "urlhere"
+      }).then(function() {
+        // profile updated
+      }, function(error) {
+        // error
       });
+
+      // assign latest mNumber
+      firebase.database().ref('mNumberLatest').once('value', snapshot => {
+        var mNumber = snapshot.val();
+        firebase.database().ref('mNumberLatest').set(mNumber+1);
+
+        firebase.database().ref('users/' + uid).set({
+          last_name: this.account.last_name,
+          first_name: this.account.first_name,
+          mNumber: mNumber
+        });
+      });
+
       this.navCtrl.push(MainPage);
     })
     .catch(err => {

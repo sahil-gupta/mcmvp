@@ -62,3 +62,15 @@
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
+
+<ion-footer *ngIf='thesegment==="my"'>
+  <ion-toolbar>
+    <p>Ash, Misty, Brock</p>
+    <ion-buttons end>
+      <button ion-button icon-right color="royal">
+        Send
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

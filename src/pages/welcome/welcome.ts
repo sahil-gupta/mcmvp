@@ -77,26 +77,35 @@ export class WelcomePage {
 
   facebookSuccessTodo(success) {
     console.log("facebook success") // + JSON.stringify(success));
+    // console.log(JSON.stringify(success));
     var uid;
-    if (success.user) { // first time login
+
+    if (success.user)
       uid = success.user.uid;
-      var p = success.additionalUserInfo.profile;
-      firebase.database().ref('users/' + uid).set({
-        gender: p.gender,
-        timezone: p.timezone,
-        link: p.link,
-        last_name: p.last_name,
-        first_name: p.first_name,
-        photoURL: p.photoURL
-      });
-    } else { // repeat login
+    else
       uid = success.uid;
-      firebase.database().ref('users/' + uid).update({
-        last_name: success.displayName.split(' ')[1],
-        first_name: success.displayName.split(' ')[0],
-        photoURL: success.photoURL
-      });
-    }
+
+    firebase.database().ref('users/' + uid).once('value', snapshot => {
+      if (snapshot.val()) { // existing user
+        console.log('repeat login');
+      } else { // new user
+        firebase.database().ref('mNumberLatest').once('value', snapshot => {
+          var mNumber = snapshot.val();
+          firebase.database().ref('mNumberLatest').set(mNumber+1);
+
+          var p = success.additionalUserInfo.profile;
+          firebase.database().ref('users/' + uid).update({
+            gender: p.gender,
+            timezone: p.timezone,
+            link: p.link,
+            last_name: p.last_name,
+            first_name: p.first_name,
+            photoURL: success.user.photoURL,
+            mNumber: mNumber
+          });
+        });
+      }
+    });
 
     this.navCtrl.push(MainPage);
   }
