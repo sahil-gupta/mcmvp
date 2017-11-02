@@ -108,7 +108,7 @@ export class ListMasterPage {
 
       if (!tempkeys.length) {
         let toast = this.toastCtrl.create({
-          message: 'Check out Curated to build your portfolio',
+          message: 'Check out Our Picks to build your portfolio',
           duration: 3000,
           position: 'middle',
           showCloseButton: true,

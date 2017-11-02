@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content has-footer>
-  <ion-list>
+  <ion-list *ngIf="blockorgs.length > 1">
     <div *ngFor="let org of blockorgs">
       <ion-item no-lines>
         <ion-label>
@@ -24,7 +24,7 @@
     </div>
 
     <ion-item>
-      <ion-label>Total</ion-label>
+      <!-- <ion-label>Total</ion-label> -->
       <ion-badge item-end *ngIf="calcSum()===100">{{calcSum()}}%</ion-badge>
       <ion-badge item-end *ngIf="calcSum()!==100" color="danger">{{calcSum()}}%</ion-badge>
     </ion-item>
@@ -72,8 +72,7 @@
   <button full ion-button icon-end
     (click)="addBlockNow()"
     [disabled]="calcSum()!==100">
-    Add Block
-    <ion-icon name="cube"></ion-icon>
+    Confirm
   </button>
 
 </ion-footer>

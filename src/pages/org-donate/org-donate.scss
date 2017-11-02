@@ -16,11 +16,15 @@ page-org-donate {
   }
 
   .list-ios, .list-md {
-    margin-bottom: -10px;
+    margin-bottom: 0;
   }
 
   .border-top {
-    border-top: 2px solid lightslategray;
+    // border-top: 1px solid #555555 !important;
+  }
+
+  ion-footer .item-ios, ion-footer .item-md {
+    background: #f5f5f5;
   }
 
   // .new-bg {
