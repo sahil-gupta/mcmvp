@@ -46,7 +46,8 @@
     "promise-polyfill": "^6.0.2",
     "rxjs": "5.4.3",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.18"
+    "zone.js": "0.8.18",
+    "cordova-ios": "~4.5.3"
   },
   "devDependencies": {
     "@angular/cli": "^1.4.9",
@@ -69,6 +70,9 @@
       "cordova-plugin-youtube-video-player": {},
       "cordova-plugin-inappbrowser": {}
     },
-    "platforms": []
+    "platforms": [
+      "ios",
+      "android"
+    ]
   }
 }
