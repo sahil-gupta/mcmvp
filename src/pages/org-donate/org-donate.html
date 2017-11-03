@@ -2,6 +2,13 @@
 
   <ion-navbar>
     <ion-title>Donate</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentAlert5Percent()">
+        <ion-icon name="information-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -55,6 +62,7 @@
         <ion-option value="0">${{theamounts[0]}}</ion-option>
         <ion-option value="1">${{theamounts[1]}}</ion-option>
         <ion-option value="2">${{theamounts[2]}}</ion-option>
+        <ion-option value="3">${{theamounts[3]}}</ion-option>
       </ion-select>
     </ion-item>
 

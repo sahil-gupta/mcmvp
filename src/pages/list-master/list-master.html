@@ -44,9 +44,9 @@
 
   <ion-list>
     <button ion-item detail-none (click)="openOrg(org)" *ngFor="let org of realorgs">
-      <!-- <ion-avatar item-start>
+      <ion-avatar item-start>
         <img [src]="org.PPlogoUrl" />
-      </ion-avatar> -->
+      </ion-avatar>
       <ion-label>
         <h2>{{ org.PPname }}</h2>
         <p>{{ org.PPdescription }}</p>

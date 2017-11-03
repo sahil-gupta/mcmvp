@@ -64,7 +64,7 @@ export class WelcomePage {
       .then(success => this.facebookSuccessTodo(success))
       .catch(error => {
         // 'auth/account-exists-with-different-credential'
-        console.log(JSON.stringify(error)); 
+        console.log(JSON.stringify(error));
 
         // let toast = this.toastCtrl.create({
         //   message: 'So... this email exists with another account',
@@ -89,6 +89,12 @@ export class WelcomePage {
       if (snapshot.val()) { // existing user
         console.log('repeat login');
       } else { // new user
+        // add the init video to inbox
+        firebase.database().ref('usersvideos/' + uid).set({
+          0: 100
+        });
+
+        // manage mNumber data and additional info
         firebase.database().ref('globals/mNumberLatest').once('value', snapshot => {
           var mNumber = snapshot.val();
           firebase.database().ref('globals/mNumberLatest').set(mNumber+1);

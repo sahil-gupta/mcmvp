@@ -62,23 +62,27 @@ export class VideosPage {
 
                 console.log(url);
 
-                this.http.get(url).subscribe(result => {
-                    if (!result || !result['items'])
-                      return;
+                // create closure
+                (function(locali, localhttp, localurl, localtempyoutubeid, localvideosdisplay) {
+                  localhttp.get(localurl).subscribe(result => {
+                      if (!result || !result['items'])
+                        return;
 
-                    console.log(result);
-                    var ref = result['items'][0].snippet;
+                      console.log(result);
+                      var ref = result['items'][0].snippet;
 
-                    var newobj: any = {}; // hydrate object
-                    newobj.publishedAt = ref.publishedAt || '';
-                    newobj.title = ref.title || '';
-                    newobj.description = ref.description || '';
-                    newobj.thumbnailurl = ref.thumbnails.medium.url || '';
-                    newobj.youtubeid = tempyoutubeid || '';
-                    newobj.youtubeopenurl = 'https://www.youtube.com/watch?v=' + tempyoutubeid;
+                      var newobj: any = {}; // hydrate object
+                      newobj.publishedAt = ref.publishedAt || '';
+                      newobj.title = ref.title || '';
+                      newobj.description = ref.description || '';
+                      newobj.thumbnailurl = ref.thumbnails.medium.url || '';
+                      newobj.youtubeid = localtempyoutubeid || '';
+                      newobj.youtubeopenurl = 'https://www.youtube.com/watch?v=' + localtempyoutubeid;
 
-                    this.videosDisplay[i] = newobj; // make sure in order
-                });
+                      localvideosdisplay[locali] = newobj; // make sure in order
+                      console.log(JSON.stringify(localvideosdisplay, null, 4));
+                  });
+                })(i, this.http, url, tempyoutubeid, this.videosDisplay);
 
                 return false;
               })

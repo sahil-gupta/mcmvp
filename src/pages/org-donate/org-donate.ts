@@ -32,8 +32,8 @@ export class OrgDonatePage {
     this.theuser = navParams.get('theuser') || {};
     this.choiceName = 'nameFirst'; // the key on 'theuser'
 
-    this.theamounts = [100, 20, 10];
-    this.choiceAmount = 1; // the index on 'theamounts'
+    this.theamounts = [100, 50, 20, 10];
+    this.choiceAmount = 2; // the index on 'theamounts'
 
     this.thepayments = ['Paypal', 'Venmo', 'Bitcoin'];
     this.choicePayment = 1; // the index on 'thepayments'. careful that the input turns it to string
@@ -41,7 +41,7 @@ export class OrgDonatePage {
 
   openWebsite(website) {
     // const browser =
-    this.iab.create(website, '_blank', 'location=no');
+    this.iab.create(website, '_system', 'location=no');
   }
 
   addBlockNow() {
@@ -148,6 +148,14 @@ export class OrgDonatePage {
     alert.present();
   }
 
+  presentAlert5Percent() {
+    const alert = this.alertCtrl.create({
+      title: 'What are our fees?',
+      message: "5%, no more, no less. We spend this money on building the app and producing video updates.",
+      buttons: ['Got it']
+    });
+    alert.present();
+  }
 
   getMonth(date) {
     var month = ['January', 'February', 'March', 'April', 'May', 'June',

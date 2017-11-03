@@ -52,6 +52,11 @@ export class SignupPage {
         // error
       });
 
+      // add the init video to inbox
+      firebase.database().ref('usersvideos/' + uid).set({
+        0: 100
+      });
+
       // assign latest mNumber
       firebase.database().ref('globals/mNumberLatest').once('value', snapshot => {
         var mNumber = snapshot.val();

@@ -13,9 +13,14 @@ page-tutorial {
   }
 
   .slide-image {
-    max-height: 40%;
-    max-width: 60%;
+    // max-height: 40%;
+    // max-width: 70%;
+    width: 75%;
     margin: 36px 0;
+  }
+
+  .slide-title.final {
+    margin-top: 60%;
   }
 
   b {

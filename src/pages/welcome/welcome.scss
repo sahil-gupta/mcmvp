@@ -1,10 +1,14 @@
 page-welcome {
   ion-content {
-    background-color: #0077f7 !important;
+    background: #eee !important;
   }
 
   .fb-blue {
     background-color: #3b5998;
+  }
+
+  .space-above {
+    margin-top: 10%;
   }
 
 
@@ -13,7 +17,7 @@ page-welcome {
     background: url('../assets/img/splashbg.png') no-repeat transparent;
     background-size: cover;
     background-position: center;
-    height: 60%;
+    height: 50%;
     z-index: 1;
     background-repeat: repeat-x;
     // animation: animatedBackground 40s linear infinite;
