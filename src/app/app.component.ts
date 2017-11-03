@@ -75,9 +75,9 @@ export class MyApp {
 
     this.currentUser = {};
     afAuth.authState.subscribe((user: firebase.User) => {
-      if (!user) return;
+      if (!user || !user.uid) return;
       var uid = user.uid;
-      firebase.database().ref('users/' + uid).once('value', snapshot => {
+      firebase.database().ref('users/' + uid).on('value', snapshot => {
         this.currentUser = snapshot.val(); // the user from the firebase db, not the firebase auth
         console.log(this.currentUser);
       });

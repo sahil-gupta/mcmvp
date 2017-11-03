@@ -88,6 +88,7 @@ export class WelcomePage {
     firebase.database().ref('users/' + uid).once('value', snapshot => {
       if (snapshot.val()) { // existing user
         console.log('repeat login');
+        this.navCtrl.push(MainPage);
       } else { // new user
         // add the init video to inbox
         firebase.database().ref('usersvideos/' + uid).set({
@@ -109,11 +110,11 @@ export class WelcomePage {
             photoURL: success.user.photoURL,
             mNumber: mNumber
           });
+
+          this.navCtrl.push(MainPage);
         });
       }
     });
-
-    this.navCtrl.push(MainPage);
   }
 
   tosignup() {
