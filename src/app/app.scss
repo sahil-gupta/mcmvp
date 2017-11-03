@@ -9,6 +9,14 @@
   margin-left: 6px;
 }
 
+.topCushion {
+  margin-top: 50px;
+}
+
+.smaller0 {
+  font-size: 1.2em !important;
+}
+
 .smaller1 {
   font-size: 1em;
 }
@@ -19,6 +27,18 @@
 
 .toolbar-title-ios {
   font-weight: normal;
+}
+
+ion-avatar img {
+  object-fit: cover;
+}
+
+.list-header-md {
+  margin-bottom: -10px;
+}
+
+.paddingTop {
+  padding-top: 10px;
 }
 
 // App Global Sass

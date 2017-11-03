@@ -2,19 +2,20 @@
   <div class="splash-bg"></div>
   <div class="splash-info">
     <div class="splash-logo"></div>
-    <div class="splash-intro">
-      {{ 'WELCOME_INTRO' | translate }}
-    </div>
+    <!-- <div class="splash-intro">microChange</div> -->
   </div>
   <div padding>
-    <button ion-button block (click)="signInWithFacebook()">
-      <!-- <ion-icon name="logo-facebook"></ion-icon> -->
+    <button ion-button full icon-start (click)="signInWithFacebook()" class="fb-blue">
+      <ion-icon name="logo-facebook"></ion-icon>
       Login with Facebook
     </button>
 
-    <button ion-button block (click)="tosignup()" class="simple cushion-top">Login with Email</button>
+    <button full ion-button icon-start (click)="tosignup()" class="button-white cushion-top">
+      <ion-icon name="mail"></ion-icon>
+      Login with Email
+    </button>
 
-    <button ion-button block (click)="quickload()" color="danger" class="cushion-top">Quick load</button>
+    <!-- <button ion-button block (click)="quickload()" color="danger" class="cushion-top">Quick load</button> -->
 
   </div>
 </ion-content>

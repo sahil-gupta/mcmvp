@@ -48,11 +48,11 @@ export class WelcomePage {
           // 'auth/account-exists-with-different-credential'
           console.log(JSON.stringify(error));
 
-          let toast = this.toastCtrl.create({
-            message: 'So... this email exists with another account',
-            duration: 3000,
-          });
-          toast.present();
+          // let toast = this.toastCtrl.create({
+          //   message: 'So... this email exists with another account',
+          //   duration: 3000,
+          // });
+          // toast.present();
         });
       })
       .catch(error => {
@@ -64,13 +64,13 @@ export class WelcomePage {
       .then(success => this.facebookSuccessTodo(success))
       .catch(error => {
         // 'auth/account-exists-with-different-credential'
-        console.log(error.code);
+        console.log(JSON.stringify(error)); 
 
-        let toast = this.toastCtrl.create({
-          message: 'So... this email exists with another account',
-          duration: 3000,
-        });
-        toast.present();
+        // let toast = this.toastCtrl.create({
+        //   message: 'So... this email exists with another account',
+        //   duration: 3000,
+        // });
+        // toast.present();
       });
     }
   }
@@ -89,9 +89,9 @@ export class WelcomePage {
       if (snapshot.val()) { // existing user
         console.log('repeat login');
       } else { // new user
-        firebase.database().ref('mNumberLatest').once('value', snapshot => {
+        firebase.database().ref('globals/mNumberLatest').once('value', snapshot => {
           var mNumber = snapshot.val();
-          firebase.database().ref('mNumberLatest').set(mNumber+1);
+          firebase.database().ref('globals/mNumberLatest').set(mNumber+1);
 
           var p = success.additionalUserInfo.profile;
           firebase.database().ref('users/' + uid).update({

@@ -11,7 +11,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { Items } from '../providers/providers';
 import { Settings } from '../providers/providers';
-import { User } from '../providers/providers'; // heree might not need this
 import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
 
@@ -81,7 +80,6 @@ export function provideSettings(storage: Storage) {
   providers: [
     Api,
     Items,
-    User,
     Camera,
     SplashScreen,
     StatusBar,

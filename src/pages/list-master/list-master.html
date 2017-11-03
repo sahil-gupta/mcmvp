@@ -16,14 +16,14 @@
 
   <ion-toolbar>
     <ion-segment [(ngModel)]="thesegment" (ionChange)="segmentChanged($event)">
-      <ion-segment-button value="my">
-        My
+      <ion-segment-button value="all">
+        All
       </ion-segment-button>
       <ion-segment-button value="curated">
         Our Picks
       </ion-segment-button>
-      <ion-segment-button value="all">
-        All
+      <ion-segment-button value="my">
+        Mine
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -64,10 +64,11 @@
 </ion-content>
 
 <ion-footer class="new-bg">
-  <button full ion-button icon-end *ngIf='thesegment==="my"'
+  <button full ion-button icon-end
+    *ngIf='thesegment==="my"'
     [disabled]="!realorgs.length"
     (click)="addBlock()">
-    Add Block
-    <ion-icon name="cube"></ion-icon>
+    Donate
+    <ion-icon name="arrow-dropright"></ion-icon>
   </button>
 </ion-footer>

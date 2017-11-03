@@ -4,8 +4,6 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-
-
     <ion-title>Blockchain</ion-title>
   </ion-navbar>
 
@@ -14,34 +12,17 @@
 
 <ion-content>
 
-  <ion-card *ngFor="let item of cardItems">
+  <ion-card *ngFor="let block of blocks">
 
-    <ion-item>
-      <ion-avatar item-start>
-        <img [src]="item.user.avatar">
-      </ion-avatar>
-      <h2>{{item.user.name}}</h2>
-      <p>{{item.date}}</p>
-    </ion-item>
-
-    <img [src]="item.image">
+    <ion-card-header>
+      <h1>{{block.index}}</h1>
+    </ion-card-header>
 
     <ion-card-content>
-      <p>{{item.content}}</p>
+      <h1>{{block.data}}</h1>
+
+      <p>{{block.dateprint}}</p>
     </ion-card-content>
 
-    <ion-row>
-      <ion-col>
-        hello
-      </ion-col>
-      <ion-col>
-        hello2
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          hello3
-        </ion-note>
-      </ion-col>
-    </ion-row>
   </ion-card>
 </ion-content>

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
+import { HttpClient } from '@angular/common/http';
 
-import { Item } from '../../models/item';
-import { Items } from '../../providers/providers';
+import * as firebase from 'firebase/app';
+import { AngularFireAuth } from 'angularfire2/auth';
 
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @IonicPage()
 @Component({
@@ -13,51 +13,84 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: 'videos.html'
 })
 export class VideosPage {
-  currentItems: Item[];
-  theItems: Observable<any[]>; // heree
+  videosDisplay;
+  currentUser;
 
   constructor(
     public navCtrl: NavController,
-    public items: Items,
     public modalCtrl: ModalController,
-    afDB: AngularFireDatabase) {
-    this.currentItems = this.items.query();
-    this.theItems = afDB.list('cuisines').valueChanges(); // heree
+    private iab: InAppBrowser,
+    afAuth: AngularFireAuth,
+    public http: HttpClient) {
+      this.videosDisplay = [];
+
+      // level 1
+      afAuth.authState.subscribe((user: firebase.User) => {
+        this.currentUser = user;
+        if (!user) {
+          console.log('no user');
+          return;
+        }
+
+        var uid = this.currentUser.uid;
+
+        // level 2
+        firebase.database().ref('usersvideos/' + uid).orderByKey()
+          .on('value', snapshot => {
+            var tempvideoids = [];
+            snapshot.forEach(childSnapshot => {
+              var temp = childSnapshot.val(); // these are video ids
+              tempvideoids.push(temp);
+              return false;
+            });
+            // console.log(tempvideoids);
+
+            tempvideoids = tempvideoids.reverse();
+
+            for (let i in tempvideoids) {
+              var videoid = tempvideoids[i];
+
+              // convert from videoid in database to youtubeid
+              firebase.database().ref('videos/' + videoid).once('value', snapshot => {
+
+                var tempyoutubeid = snapshot.val().youtubeid;
+                var url = "https://www.googleapis.com/youtube/v3/videos?id=";
+                url += tempyoutubeid;
+                url += "&part=snippet&key=AIzaSyBLZNjlJT";
+                url += "R2-KP8OsuVJ3Pcdr0zKEjI";
+                url += "oxY";
+
+                console.log(url);
+
+                this.http.get(url).subscribe(result => {
+                    if (!result || !result['items'])
+                      return;
+
+                    console.log(result);
+                    var ref = result['items'][0].snippet;
+
+                    var newobj: any = {}; // hydrate object
+                    newobj.publishedAt = ref.publishedAt || '';
+                    newobj.title = ref.title || '';
+                    newobj.description = ref.description || '';
+                    newobj.thumbnailurl = ref.thumbnails.medium.url || '';
+                    newobj.youtubeid = tempyoutubeid || '';
+                    newobj.youtubeopenurl = 'https://www.youtube.com/watch?v=' + tempyoutubeid;
+
+                    this.videosDisplay[i] = newobj; // make sure in order
+                });
+
+                return false;
+              })
+            }
+          });
+      });
+
   }
 
-  /**
-   * The view loaded, let's query our items for the list
-   */
-  ionViewDidLoad() {
+  openWebsite(website) {
+    // const browser =
+    this.iab.create(website, '_blank', 'location=no');
   }
 
-  /**
-   * Prompt the user to add a new item. This shows our ItemCreatePage in a
-   * modal and then adds the new item to our data source if the user created one.
-   */
-  addItem() {
-    let addModal = this.modalCtrl.create('ItemCreatePage');
-    addModal.onDidDismiss(item => {
-      if (item) {
-        this.items.add(item);
-      }
-    })
-    addModal.present();
-  }
-
-  /**
-   * Delete an item from the list of items.
-   */
-  deleteItem(item) {
-    this.items.delete(item);
-  }
-
-  /**
-   * Navigate to the detail page for this item.
-   */
-  openItem(item: Item) {
-    this.navCtrl.push('ItemDetailPage', {
-      item: item
-    });
-  }
 }

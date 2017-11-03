@@ -1,3 +1,9 @@
 page-tabs {
+  .tabs-ios .tabbar, .tabs-md .tabbar {
+      // background: black;
+  }
 
+  .tabs-ios .tab-button:hover:not(.disable-hover), .tabs-ios .tab-button[aria-selected=true] {
+    // color: green;
+  }
 }

@@ -39,13 +39,19 @@
       </ion-item>
 
       <div padding>
-        <button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>
+        <button ion-button color="primary" full icon-start>
+          <ion-icon name="log-in"></ion-icon>
+          Sign Up
+        </button>
       </div>
 
     </ion-list>
   </form>
 
   <div padding>
-    <button ion-button block (click)="tologin()" class="login">I already have an account</button>
+    <button ion-button full (click)="tologin()" class="login" icon-start>
+      <ion-icon name="contact"></ion-icon>
+      I already have an account
+    </button>
   </div>
 </ion-content>

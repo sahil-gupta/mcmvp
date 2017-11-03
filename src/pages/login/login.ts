@@ -33,7 +33,7 @@ export class LoginPage {
   }
 
   doFirebaseLogin() {
-    firebase.auth().signOut();
+    // firebase.auth().signOut();
 
     firebase.auth().signInWithEmailAndPassword(this.account.email, this.account.password)
     .then(success => {

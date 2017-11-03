@@ -35,7 +35,7 @@ export class SignupPage {
   }
 
   doFirebaseSignup() {
-    firebase.auth().signOut()
+    // firebase.auth().signOut()
 
     firebase.auth().createUserWithEmailAndPassword(this.account.email, this.account.password)
     .then(success => {
@@ -53,9 +53,9 @@ export class SignupPage {
       });
 
       // assign latest mNumber
-      firebase.database().ref('mNumberLatest').once('value', snapshot => {
+      firebase.database().ref('globals/mNumberLatest').once('value', snapshot => {
         var mNumber = snapshot.val();
-        firebase.database().ref('mNumberLatest').set(mNumber+1);
+        firebase.database().ref('globals/mNumberLatest').set(mNumber+1);
 
         firebase.database().ref('users/' + uid).set({
           last_name: this.account.last_name,

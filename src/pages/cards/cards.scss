@@ -1,3 +1,24 @@
 page-cards {
+  .card-md, .card-ios {
+    background: #001933;
+  }
+
+  .card-md p, .card-ios p,
+  .card-md *, .card-ios * {
+    color: white;
+  }
+
+  .card-ios ion-card-content h1, .card-md ion-card-content h1 {
+    margin-bottom: 15px;
+  }
+
+  .card-ios ion-card-header h1, .card-md ion-card-header h1 {
+    font-size: 3.4rem;
+  }
+
+  .card-ios, .card-md {
+    margin: 20px;
+    width: calc(100% - 40px);
+  }
 
 }

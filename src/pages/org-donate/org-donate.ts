@@ -32,7 +32,7 @@ export class OrgDonatePage {
     this.theuser = navParams.get('theuser') || {};
     this.choiceName = 'nameFirst'; // the key on 'theuser'
 
-    this.theamounts = [20, 10, 5];
+    this.theamounts = [100, 20, 10];
     this.choiceAmount = 1; // the index on 'theamounts'
 
     this.thepayments = ['Paypal', 'Venmo', 'Bitcoin'];
@@ -85,7 +85,7 @@ export class OrgDonatePage {
     }
 
     // back end block management. happens in parallel
-    firebase.database().ref('blocks/lastblock').once('value', snapshot => {
+    firebase.database().ref('globals/lastblock').once('value', snapshot => {
       var lastblock = snapshot.val();
 
       this.presentAlert(lastblock+1);
@@ -100,7 +100,7 @@ export class OrgDonatePage {
       });
 
       // update /lastblock
-      firebase.database().ref('blocks/lastblock').set(lastblock+1);
+      firebase.database().ref('globals/lastblock').set(lastblock+1);
 
       // add block to usersblocks table
       firebase.database().ref('usersblocks').push({
@@ -119,10 +119,11 @@ export class OrgDonatePage {
   }
 
   presentAlert(n) {
-    var height = n+1; // because not zero indexed
+    // var height = n+1; // because not zero indexed. can later tell donors how high blockchain is.
+
     const alert = this.alertCtrl.create({
       title: 'Thanks',
-      message: "<p>We got your donation. We're sending it to your charities now.</p><p>microChange is now " + height + " blocks tall :)</p>",
+      message: "<p>We got your donation. We're sending it to your charities now.</p><p>:)</p>",
       buttons: [{
           text: 'Got it',
           handler: () => {

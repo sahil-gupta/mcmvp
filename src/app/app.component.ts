@@ -18,17 +18,30 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   `<ion-menu [content]="content">
     <ion-content>
       <ion-list>
-        <ion-item *ngIf="currentUser">
+
+        <ion-item *ngIf="currentUser" class="paddingTop">
           <ion-avatar item-left *ngIf="currentUser.photoURL">
             <img [src]="currentUser.photoURL">
           </ion-avatar>
           <h1 *ngIf="currentUser.first_name">{{ currentUser.first_name }}</h1>
         </ion-item>
-        <button menuClose ion-item detail-none (click)="openWebsite()">
-          Message Us Instantly
+
+        <button menuClose ion-item detail-none icon-start (click)="openWebsite()">
+          <ion-icon name="text" class="smaller0"></ion-icon>
+          Message the Founders
         </button>
-        <button menuClose ion-item detail-none (click)="logout()">
+
+        <button menuClose ion-item detail-none icon-start (click)="logout()">
+          <ion-icon name="exit" class="smaller0"></ion-icon>
           Logout
+        </button>
+
+        <ion-list-header class="topCushion">
+            Experimental
+        </ion-list-header>
+        <button menuClose ion-item icon-start (click)="openPage(blockchainPage)">
+          <ion-icon name="logo-buffer" class="smaller0"></ion-icon>
+          Blockchain
         </button>
       </ion-list>
     </ion-content>
@@ -40,6 +53,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 export class MyApp {
   rootPage = FirstRunPage;
   currentUser;
+  blockchainPage;
 
   @ViewChild(Nav) nav: Nav;
 
@@ -56,6 +70,9 @@ export class MyApp {
       this.splashScreen.hide();
     });
     this.initTranslate();
+
+    this.blockchainPage = 'CardsPage';
+
     this.currentUser = {};
     afAuth.authState.subscribe((user: firebase.User) => {
       if (!user) return;
@@ -82,21 +99,20 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+  openPage(thepage) {
+    this.nav.push(thepage);
   }
 
   openWebsite() {
     // const browser =
     var messenger = 'https://m.me/microchange.io';
-    this.iab.create(messenger, '_blank', 'location=no');
+    this.iab.create(messenger, '_system', 'location=no');
   }
 
 
   logout() {
-    // firebase.auth().signOut(); // heree need to use .off() to turn off firebase connections first
+    firebase.auth().signOut(); // heree need to use .off() to turn off firebase connections first
+    console.log('logged out rn')
     this.nav.setRoot('WelcomePage');
   }
 }

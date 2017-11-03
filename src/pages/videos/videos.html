@@ -14,27 +14,18 @@
 <ion-content>
 
   <ion-list>
-    <ion-item class="text" *ngFor="let item of theItems | async">
-      {{ item | json }}
-    </ion-item>
+    <button detail-none ion-item (click)="openWebsite(vd.youtubeopenurl)"
+      *ngFor="let vd of videosDisplay">
+      <ion-avatar item-start *ngIf="vd">
+        <img [src]="vd.thumbnailurl" />
+      </ion-avatar>
+      <ion-label *ngIf="vd">
+        <h2>{{ vd.title }}</h2>
+        <p>{{ vd.description }}</p>
+      </ion-label>
+      <ion-icon item-end name="play"></ion-icon>
+      <!-- <ion-note item-end>{{ org.MCstars }}</ion-note> -->
+    </button>
   </ion-list>
 
-  <ion-list>
-    <ion-item-sliding *ngFor="let item of currentItems">
-      <button ion-item (click)="openItem(item)">
-        <ion-avatar item-start>
-          <img [src]="item.profilePic" />
-        </ion-avatar>
-        <h2>{{item.name}}</h2>
-        <p>{{item.about}}</p>
-        <ion-note item-end *ngIf="item.note">{{item.note}}</ion-note>
-      </button>
-
-      <ion-item-options>
-        <button ion-button color="danger" (click)="deleteItem(item)">
-          {{ 'DELETE_BUTTON' | translate }}
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
 </ion-content>
