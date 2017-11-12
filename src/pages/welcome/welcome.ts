@@ -122,6 +122,19 @@ export class WelcomePage {
   }
 
   quickload() {
-    this.navCtrl.push(MainPage);
+    firebase.auth().signInWithEmailAndPassword("tom@hanks.com", "tomhankspw")
+    .then(success => {
+      console.log('guest logged in');
+      this.navCtrl.push(MainPage);
+    })
+    .catch(err => {
+      // error.code
+      let toast = this.toastCtrl.create({
+        message: err.message,
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+    });
   }
 }

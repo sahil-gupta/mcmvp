@@ -7,15 +7,18 @@
   <div padding class="space-above">
     <button ion-button full icon-start (click)="signInWithFacebook()" class="fb-blue">
       <ion-icon name="logo-facebook"></ion-icon>
-      Login with Facebook
+      Continue with Facebook
     </button>
 
-    <button full ion-button icon-start (click)="tosignup()" class="button-white cushion-top">
+    <button ion-button full icon-start (click)="tosignup()" class="button-white cushion-top">
       <ion-icon name="mail"></ion-icon>
-      Login with Email
+      Continue with Email
     </button>
 
-    <!-- <button ion-button block (click)="quickload()" color="danger" class="cushion-top">Quick load</button> -->
+    <button ion-button full icon-start (click)="quickload()" color="secondary" class="cushion-top">
+      <ion-icon name="fastforward"></ion-icon>
+      Skip Login
+    </button>
 
   </div>
 </ion-content>
